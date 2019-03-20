@@ -1,116 +1,28 @@
+import 'screens/home.dart';
+import 'screens/login.dart';
+import 'auth.dart';
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
-void main() => runApp(MyApp());
+AuthService appAuth = new AuthService();
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "My Sandbox App",
-      theme: new ThemeData(
-        primaryColor: Colors.deepPurpleAccent,
-      ),
-      home: RandomWords(),
-    );
-  }
-}
+void main() async {
+  // Set default home.
+  Widget _defaultHome = new LoginPage();
 
-class RandomWordsState extends State<RandomWords> {
-  final List<WordPair> _suggestions = <WordPair>[];
-  final Set<WordPair> _saved = new Set<WordPair>();
-  final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
-
-  @override
-  Widget build(BuildContext context) {
-    final FlatButton _showFavButton = new FlatButton(
-      child: Text(
-        _saved.length == 0 ? '☹️' : '😍',
-        style: _biggerFont,
-      ),
-      onPressed: _saved.length == 0 ? null : _pushSaved,
-    );
-
-    return Scaffold(
-      appBar: AppBar(title: Text('Startup Name Generator'), actions: <Widget>[
-        _showFavButton,
-      ]),
-      body: _buildSuggestions(),
-    );
+  // Get result of the login function.
+  bool _result = await appAuth.login();
+  if (_result) {
+    _defaultHome = new HomePage();
   }
 
-  Widget _buildRow(WordPair pair) {
-    final bool alreadySaved = _saved.contains(pair);
-
-    return new ListTile(
-      title: new Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-      trailing: new Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : Colors.grey,
-      ),
-      onTap: () {
-        setState(() {
-          if (alreadySaved) {
-            _saved.remove(pair);
-          } else {
-            _saved.add(pair);
-          }
-        });
-      },
-    );
-  }
-
-  Widget _buildSuggestions() {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, i) {
-        if (i.isOdd) return Divider();
-
-        final index = i ~/ 2;
-        if (index >= _suggestions.length) {
-          _suggestions.addAll(generateWordPairs().take(10));
-        }
-
-        return _buildRow(_suggestions[index]);
-      },
-    );
-  }
-
-  void _pushSaved() {
-    Navigator.of(context).push(
-      new MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          final Iterable<ListTile> tiles = _saved.map(
-            (WordPair pair) {
-              return new ListTile(
-                title: new Text(
-                  pair.asPascalCase,
-                  style: _biggerFont,
-                ),
-              );
-            },
-          );
-          final List<Widget> divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
-
-          return new Scaffold(
-            appBar: new AppBar(
-              title: const Text('Saved Suggestions'),
-            ),
-            body: new ListView(children: divided),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class RandomWords extends StatefulWidget {
-  @override
-  RandomWordsState createState() => new RandomWordsState();
+  // Run app!
+  runApp(new MaterialApp(
+    title: 'App',
+    home: _defaultHome,
+    routes: <String, WidgetBuilder>{
+      // Set routes for using the Navigator.
+      '/home': (BuildContext context) => new HomePage(),
+      '/login': (BuildContext context) => new LoginPage()
+    },
+  ));
 }
