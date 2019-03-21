@@ -44,7 +44,7 @@ flutter:
     - images/bg6.jpg
 
   fonts:
-    - family: ProximaNova
+    - family: 'Proxima Nova'
       fonts:
         - asset: fonts/Proxima Nova Reg.ttf
         - asset: fonts/Proxima Nova Bold.ttf
