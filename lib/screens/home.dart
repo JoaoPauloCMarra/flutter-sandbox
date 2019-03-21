@@ -1,5 +1,7 @@
-import 'package:sandbox/main.dart';
 import 'package:flutter/material.dart';
+
+import 'package:sandbox/main.dart';
+import 'package:sandbox/shared/button.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,13 +29,34 @@ class _HomePageState extends State<HomePage> {
 
   Widget _welcome() => Text('Welcome to MySocial!');
 
-  Widget _logoutButton() => FlatButton(
-      child: Text('Logout (${this._status})'),
-      onPressed: () {
-        setState(() => this._status = 'loading');
+  Widget _logoutButton() {
+    String _text = 'Log out';
+    Color _buttonStyle;
 
-        appAuth
-            .logout()
-            .then((_) => Navigator.of(context).pushReplacementNamed('/login'));
-      });
+    switch (this._status) {
+      case 'loading':
+        _text = 'wait...';
+        _buttonStyle = Colors.grey;
+        break;
+      case 'rejected':
+        _text = 'Rejected! Try again';
+        _buttonStyle = Colors.red;
+        break;
+      default:
+        _buttonStyle = Colors.black;
+    }
+
+    return Button(
+        text: _text,
+        textColor: _buttonStyle,
+        fontSize: 18,
+        fontWeight: FontWeight.w700,
+        borderColor: _buttonStyle,
+        onPressed: () {
+          setState(() => this._status = 'loading');
+          appAuth.logout().then((result) {
+            Navigator.of(context).pushReplacementNamed('/login');
+          });
+        });
+  }
 }

@@ -17,8 +17,8 @@ void main() async {
   Widget _defaultHome = new LoginPage(bg: _bgIndex());
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.blue, // navigation bar color
-    statusBarColor: Colors.pink, // status bar color
+    systemNavigationBarColor: Colors.black,
+    statusBarColor: Colors.black,
   ));
 
   bool _result = await appAuth.login();

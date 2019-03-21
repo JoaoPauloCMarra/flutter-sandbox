@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sandbox/main.dart';
 import 'package:sandbox/shared/logo.dart';
+import 'package:sandbox/shared/button.dart';
 
 class LoginPage extends StatefulWidget {
   final AssetImage bg;
@@ -86,43 +87,37 @@ class _LoginPageState extends State<LoginPage> {
           )));
 
   Widget _loginButton() {
+    String _text = 'Log in';
     Color _buttonStyle;
+
     switch (this._status) {
       case 'loading':
+        _text = 'wait...';
         _buttonStyle = Colors.grey;
         break;
       case 'rejected':
+        _text = 'Rejected! Try again';
         _buttonStyle = Colors.red;
         break;
       default:
         _buttonStyle = Colors.white;
     }
 
-    return Container(
-        margin: const EdgeInsets.only(top: 20),
-        decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: new BorderRadius.circular(25.0),
-            border: new Border.all(color: _buttonStyle, width: 1)),
-        child: FlatButton(
-            child: Text('Log in (${this._status})',
-                style: TextStyle(
-                  color: _buttonStyle,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                )),
-            padding: const EdgeInsets.only(left: 50, right: 50),
-            onPressed: this._status != 'loading'
-                ? () {
-                    setState(() => this._status = 'loading');
-                    appAuth.login().then((result) {
-                      if (result) {
-                        Navigator.of(context).pushReplacementNamed('/home');
-                      } else {
-                        setState(() => this._status = 'rejected');
-                      }
-                    });
-                  }
-                : null));
+    return Button(
+        text: _text,
+        textColor: _buttonStyle,
+        fontSize: 18,
+        fontWeight: FontWeight.w700,
+        borderColor: _buttonStyle,
+        onPressed: () {
+          setState(() => this._status = 'loading');
+          appAuth.login().then((result) {
+            if (result) {
+              Navigator.of(context).pushReplacementNamed('/home');
+            } else {
+              setState(() => this._status = 'rejected');
+            }
+          });
+        });
   }
 }
