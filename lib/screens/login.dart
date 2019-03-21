@@ -31,25 +31,18 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Logo(),
-            Warning(),
-            LoginButton(
-              status: this._status,
-              updateStatus: (nextStatus) =>
-                  setState(() => this._status = nextStatus),
-            ),
-            Help(),
-            Information(),
+            _logo(),
+            _warning(),
+            _loginButton(),
+            _help(),
+            _information(),
           ],
         )),
       ),
     );
   }
-}
 
-class Logo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget _logo() {
     return Container(
         child: Text(
       'MySocial',
@@ -60,11 +53,8 @@ class Logo extends StatelessWidget {
       ),
     ));
   }
-}
 
-class Warning extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget _warning() {
     return Container(
       margin: const EdgeInsets.only(top: 80),
       child: Column(
@@ -88,11 +78,8 @@ class Warning extends StatelessWidget {
       ),
     );
   }
-}
 
-class Help extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget _help() {
     return Container(
         margin: const EdgeInsets.only(top: 40),
         child: Text(
@@ -104,11 +91,8 @@ class Help extends StatelessWidget {
               decoration: TextDecoration.underline),
         ));
   }
-}
 
-class Information extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget _information() {
     return Container(
         margin: const EdgeInsets.only(top: 40),
         child: Text('We don\'t post anything on Facebook',
@@ -118,17 +102,8 @@ class Information extends StatelessWidget {
               fontWeight: FontWeight.normal,
             )));
   }
-}
 
-class LoginButton extends StatelessWidget {
-  final String status;
-  final Function updateStatus;
-
-  const LoginButton({Key key, this.status, this.updateStatus})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _loginButton() {
     return Container(
         margin: const EdgeInsets.only(top: 20),
         decoration: BoxDecoration(
@@ -136,7 +111,7 @@ class LoginButton extends StatelessWidget {
             borderRadius: new BorderRadius.circular(25.0),
             border: new Border.all(color: Colors.white, width: 1)),
         child: FlatButton(
-            child: Text('Log in (${this.status})',
+            child: Text('Log in (${this._status})',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
@@ -145,14 +120,13 @@ class LoginButton extends StatelessWidget {
             textColor: Colors.white,
             padding: const EdgeInsets.only(left: 50, right: 50),
             onPressed: () {
-              this.updateStatus('loading');
-
-              if (this.status != 'loading') {
+              if (this._status != 'loading') {
+                setState(() => this._status = 'loading');
                 appAuth.login().then((result) {
                   if (result) {
                     Navigator.of(context).pushReplacementNamed('/home');
                   } else {
-                    this.updateStatus('rejected');
+                    setState(() => this._status = 'rejected');
                   }
                 });
               }
