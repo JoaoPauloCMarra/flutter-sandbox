@@ -1,5 +1,7 @@
-import 'package:sandbox/main.dart';
 import 'package:flutter/material.dart';
+
+import 'package:sandbox/main.dart';
+import 'package:sandbox/shared/logo.dart';
 
 class LoginPage extends StatefulWidget {
   final AssetImage bg;
@@ -27,28 +29,18 @@ class _LoginPageState extends State<LoginPage> {
           ),
           child: Center(
               child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _logo(),
+              Logo(),
               _warning(),
               _loginButton(),
               _help(),
               _information(),
             ],
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
           )),
         ),
       );
-
-  Widget _logo() => Container(
-          child: Text(
-        'MySocial',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 32,
-          fontWeight: FontWeight.w700,
-        ),
-      ));
 
   Widget _warning() => Container(
         margin: const EdgeInsets.only(top: 80),
