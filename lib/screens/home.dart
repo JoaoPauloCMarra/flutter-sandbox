@@ -10,26 +10,30 @@ class _HomePageState extends State<HomePage> {
   String _status = 'no-action';
 
   @override
-  Widget build(BuildContext context) => new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Home'),
-        ),
-        body: new Container(
-          margin: new EdgeInsets.only(top: 50.0),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: _appBar(),
+        body: Container(
+          margin: EdgeInsets.only(top: 50),
           alignment: Alignment.center,
-          child: new Column(
-            children: <Widget>[
-              new Text('Welcome to App!'),
-              new FlatButton(
-                  child: new Text('Logout (${this._status})'),
-                  onPressed: () {
-                    setState(() => this._status = 'loading');
-
-                    appAuth.logout().then((_) =>
-                        Navigator.of(context).pushReplacementNamed('/login'));
-                  })
-            ],
+          child: Column(
+            children: [_welcome(), _logoutButton()],
           ),
         ),
       );
+
+  Widget _appBar() => AppBar(
+        title: Text('Landing...'),
+      );
+
+  Widget _welcome() => Text('Welcome to MySocial!');
+
+  Widget _logoutButton() => FlatButton(
+      child: Text('Logout (${this._status})'),
+      onPressed: () {
+        setState(() => this._status = 'loading');
+
+        appAuth
+            .logout()
+            .then((_) => Navigator.of(context).pushReplacementNamed('/login'));
+      });
 }
