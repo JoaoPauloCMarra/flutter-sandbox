@@ -24,6 +24,9 @@ class Logo extends StatelessWidget {
             color: textColor,
             size: fontSize,
           ),
+          Container(
+            margin: EdgeInsets.only(right: 10),
+          ),
           Text(
             this.text,
             style: TextStyle(
