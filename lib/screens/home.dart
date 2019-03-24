@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:sandbox/main.dart';
-import 'package:sandbox/shared/button.dart';
+import 'package:MySocial/main.dart';
+import 'package:MySocial/shared/button.dart';
 
 class HomePage extends StatefulWidget {
   @override

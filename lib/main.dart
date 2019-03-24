@@ -27,7 +27,8 @@ void main() async {
   }
 
   runApp(new MaterialApp(
-    title: 'App',
+    debugShowCheckedModeBanner: false,
+    title: 'MySocial',
     home: _defaultHome,
     theme: ThemeData(fontFamily: 'Proxima Nova', primaryColor: Colors.black),
     routes: <String, WidgetBuilder>{
