@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:MySocial/utils.dart';
+
 class Button extends StatelessWidget {
   final String text;
   final double fontSize;
@@ -30,6 +32,7 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
+      constraints: const BoxConstraints(minWidth: double.infinity),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
           color: backgroundColor,
@@ -40,7 +43,7 @@ class Button extends StatelessWidget {
           child: Text(text,
               style: TextStyle(
                 color: textColor,
-                fontSize: fontSize,
+                fontSize: screenAwareSize(fontSize, context),
                 fontWeight: fontWeight,
               )),
           padding: EdgeInsets.only(

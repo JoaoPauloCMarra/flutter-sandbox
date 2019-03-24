@@ -5,6 +5,7 @@ import 'package:MySocial/utils.dart';
 import 'package:MySocial/shared/logo.dart';
 import 'package:MySocial/shared/button.dart';
 import 'package:MySocial/shared/link.dart';
+import 'package:MySocial/shared/modal-full.dart';
 
 class LoginPage extends StatefulWidget {
   final AssetImage bg;
@@ -21,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Container(
-          padding: const EdgeInsets.only(bottom: 80),
+          padding: const EdgeInsets.only(bottom: 80, left: 20, right: 20),
           decoration: BoxDecoration(
             image: DecorationImage(
               image: widget.bg,
@@ -95,12 +96,17 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _information() => Container(
       margin: const EdgeInsets.only(top: 40),
-      child: Text('We don\'t post anything on Facebook',
+      child: FlatButton(
+        child: Text(
+          'We don\'t post anything on Facebook',
           style: TextStyle(
             color: Colors.white,
             fontSize: screenAwareSize(14, context),
             fontWeight: FontWeight.normal,
-          )));
+          ),
+        ),
+        onPressed: () => _showOverlay(context),
+      ));
 
   Widget _loginButton() {
     String _text = 'Log in';
@@ -135,5 +141,39 @@ class _LoginPageState extends State<LoginPage> {
             }
           });
         });
+  }
+
+  void _showOverlay(BuildContext context) {
+    final TextStyle textStyle = TextStyle(
+      color: Colors.grey[850],
+      fontSize: screenAwareSize(14, context),
+      fontWeight: FontWeight.normal,
+    );
+    final String text =
+        ''' Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ''';
+
+    Navigator.of(context).push(ShowModal(
+      title: 'My sample modal :)',
+      child: Column(
+        children: <Widget>[
+          Text(
+            text,
+            style: textStyle,
+          ),
+          Text(
+            text,
+            style: textStyle,
+          ),
+          Text(
+            text,
+            style: textStyle,
+          ),
+          Text(
+            text,
+            style: textStyle,
+          )
+        ],
+      ),
+    ));
   }
 }
