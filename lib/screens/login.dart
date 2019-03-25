@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 import 'package:MySocial/main.dart';
 import 'package:MySocial/utils.dart';
@@ -132,6 +133,26 @@ class _LoginPageState extends State<LoginPage> {
         _buttonStyle = Colors.white;
     }
 
+    if (this._status == 'success') {
+      return Container(
+        margin: EdgeInsets.only(top: 20),
+        width: 150,
+        height: 150,
+        child: FlareActor(
+          "animations/success_icon.flr",
+          shouldClip: false,
+          animation: "pop",
+          alignment: Alignment.center,
+          fit: BoxFit.cover,
+          callback: (animation) {
+            Future.delayed(const Duration(milliseconds: 500), () {
+              Navigator.of(context).pushReplacementNamed('/home');
+            });
+          },
+        ),
+      );
+    }
+
     return Button(
         text: _text,
         textColor: _buttonStyle,
@@ -142,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
           setState(() => this._status = 'loading');
           appAuth.login().then((result) {
             if (result) {
-              Navigator.of(context).pushReplacementNamed('/home');
+              setState(() => this._status = 'success');
             } else {
               setState(() => this._status = 'rejected');
             }

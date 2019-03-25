@@ -21,6 +21,7 @@ dependencies:
     sdk: flutter
 
   url_launcher: ^5.0.2
+  flare_flutter: ^1.3.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -38,6 +39,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - animations/success_icon.flr
     - images/bg1.jpg
     - images/bg2.jpg
     - images/bg3.jpg
