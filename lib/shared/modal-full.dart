@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:MySocial/theme.dart';
 import 'button.dart';
 
-var config;
+ModalConfig config;
 
 class ShowModal extends ModalRoute<void> {
   @override
-  Duration get transitionDuration => Duration(milliseconds: 500);
+  Duration get transitionDuration => Duration(milliseconds: 400);
 
   @override
   bool get opaque => false;
@@ -30,7 +30,7 @@ class ShowModal extends ModalRoute<void> {
     Animation<double> animation,
     Animation<double> secondaryAnimation,
   ) {
-    config = new ModalConfig(context);
+    config = ModalConfig(context);
     return Material(
       type: MaterialType.transparency,
       child: _buildOverlayContent(context),
@@ -39,27 +39,28 @@ class ShowModal extends ModalRoute<void> {
 
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
-    return FadeTransition(
-      opacity: animation,
-      child: ScaleTransition(
-        scale: animation,
-        child: child,
-      ),
-    );
-  }
+          Animation<double> secondaryAnimation, Widget child) =>
+      FadeTransition(
+        opacity: animation,
+        child: ScaleTransition(
+          scale: animation,
+          child: child,
+        ),
+      );
 
   String title;
   Widget child;
+  Function onConfirm;
 
   ShowModal({
     this.title = '',
     this.child = const Text(' '),
+    this.onConfirm,
   });
 
   Widget _buildOverlayContent(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(config.containerPadding()),
         decoration: BoxDecoration(
           color: config.backgroundColor(),
         ),
@@ -72,13 +73,16 @@ class ShowModal extends ModalRoute<void> {
             children: [
               _title(context),
               Container(
-                margin: const EdgeInsets.only(top: 20),
+                margin: EdgeInsets.only(bottom: config.titleMarginBottom()),
               ),
               Expanded(
                   child: ListView(
                 shrinkWrap: true,
                 children: [child],
               )),
+              Container(
+                margin: EdgeInsets.only(bottom: config.contentMarginBottom()),
+              ),
               _actions(context)
             ],
           ),
@@ -93,11 +97,28 @@ class ShowModal extends ModalRoute<void> {
         )
       : null;
 
-  Button _actions(BuildContext context) => Button(
-        text: 'Close',
+  Widget _actions(BuildContext context) {
+    var actions = <Widget>[];
+
+    if (onConfirm != null) {
+      actions.add(Button(
+        text: 'Confirm',
         fontSize: config.buttonFontSize(),
-        borderColor: config.buttonColorPrimary(),
-        textColor: config.buttonColorPrimary(),
-        onPressed: () => Navigator.pop(context),
-      );
+        borderColor: config.buttonColorConfirm(),
+        textColor: config.buttonColorConfirm(),
+        onPressed: () => onConfirm(),
+      ));
+    }
+    actions.add(Button(
+      text: 'Close',
+      fontSize: config.buttonFontSize(),
+      borderColor: config.buttonColorCancel(),
+      textColor: config.buttonColorCancel(),
+      onPressed: () => Navigator.pop(context),
+    ));
+
+    return Column(
+      children: actions,
+    );
+  }
 }

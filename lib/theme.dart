@@ -11,14 +11,22 @@ class ModalConfig {
 
   Color backgroundColor() => Colors.white.withOpacity(0.9);
 
+  double containerPadding() => 20.0;
+
   TextStyle titleStyle() => TextStyle(
-      color: Colors.grey[900], fontSize: screenAwareSize(26, context));
+      color: Colors.grey[900],
+      fontSize: screenAwareSize(26, context),
+      fontWeight: FontWeight.w700);
 
   TextAlign titleAlign() => TextAlign.center;
 
-  Color buttonColorPrimary() => Colors.black;
+  double titleMarginBottom() => 20.0;
 
-  Color buttonColorSecondary() => Colors.grey;
+  double contentMarginBottom() => 10.0;
+
+  Color buttonColorConfirm() => Colors.black;
+
+  Color buttonColorCancel() => Colors.red[500];
 
   double buttonFontSize() => screenAwareSize(16, context);
 }

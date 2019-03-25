@@ -97,13 +97,20 @@ class _LoginPageState extends State<LoginPage> {
   Widget _information() => Container(
       margin: const EdgeInsets.only(top: 40),
       child: FlatButton(
-        child: Text(
-          'We don\'t post anything on Facebook',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: screenAwareSize(14, context),
-            fontWeight: FontWeight.normal,
-          ),
+        textColor: Colors.white,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'We don\'t post anything on Facebook',
+              style: TextStyle(
+                fontSize: screenAwareSize(12, context),
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            Icon(Icons.keyboard_arrow_up)
+          ],
         ),
         onPressed: () => _showOverlay(context),
       ));
@@ -153,27 +160,26 @@ class _LoginPageState extends State<LoginPage> {
         ''' Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ''';
 
     Navigator.of(context).push(ShowModal(
-      title: 'My sample modal :)',
-      child: Column(
-        children: <Widget>[
-          Text(
-            text,
-            style: textStyle,
-          ),
-          Text(
-            text,
-            style: textStyle,
-          ),
-          Text(
-            text,
-            style: textStyle,
-          ),
-          Text(
-            text,
-            style: textStyle,
-          )
-        ],
-      ),
-    ));
+        title: 'My sample modal :)',
+        child: Column(
+          children: <Widget>[
+            Text(
+              text,
+              style: textStyle,
+            ),
+            Text(
+              text,
+              style: textStyle,
+            ),
+            Text(
+              text,
+              style: textStyle,
+            ),
+            Text(
+              text,
+              style: textStyle,
+            )
+          ],
+        )));
   }
 }
