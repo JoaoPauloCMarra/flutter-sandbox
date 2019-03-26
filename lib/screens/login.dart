@@ -117,76 +117,82 @@ class _LoginPageState extends State<LoginPage> {
       ));
 
   Widget _loginButton() {
-    String _text = 'Log in';
-    Color _buttonStyle;
+    bool animate = false;
     double animationSize = 100;
+    String animationFile = '';
+    String animationName = '';
+    String text = 'Log in';
+    Color buttonStyle = Colors.white;
 
     switch (this._status) {
-      case 'loading':
-        _text = 'wait...';
-        _buttonStyle = Colors.grey;
-        break;
       case 'rejected':
-        _text = 'Rejected! Try again';
-        _buttonStyle = Colors.red;
+        text = 'Rejected! Try again';
+        buttonStyle = Colors.redAccent;
+        break;
+      case 'loading':
+        animate = true;
+        animationFile = "animations/loading_fingerprint.flr";
+        animationName = "loop";
+        break;
+      case 'success':
+        animate = true;
+        animationFile = "animations/success_icon.flr";
+        animationName = "pop";
+        break;
+      case 'rejected_icon':
+        animate = true;
+        animationFile = "animations/fail_icon.flr";
+        animationName = "pop";
         break;
       default:
-        _buttonStyle = Colors.white;
+        text = 'Log in';
     }
 
-    if (this._status == 'success') {
+    if (animate == true) {
       return Container(
         margin: EdgeInsets.only(top: 20),
         width: animationSize,
         height: animationSize,
-        child: FlareActor(
-          "animations/success_icon.flr",
-          shouldClip: false,
-          animation: "pop",
-          alignment: Alignment.center,
-          fit: BoxFit.cover,
-          callback: (animation) {
-            Future.delayed(const Duration(milliseconds: 1000), () {
-              Navigator.of(context).pushReplacementNamed('/home');
-            });
-          },
-        ),
+        child: FlareActor(animationFile,
+            shouldClip: false,
+            animation: animationName,
+            alignment: Alignment.center,
+            fit: BoxFit.cover, callback: (animation) {
+          switch (this._status) {
+            case 'success':
+              Future.delayed(const Duration(seconds: 1), () {
+                Navigator.of(context).pushReplacementNamed('/home');
+              });
+              break;
+            case 'rejected_icon':
+              Future.delayed(const Duration(milliseconds: 1000), () {
+                setState(() => this._status = 'rejected');
+              });
+              break;
+            default:
+              return null;
+          }
+        }),
       );
     }
 
-    if (this._status == 'rejected_icon') {
-      return Container(
-        margin: EdgeInsets.only(top: 20),
-        width: animationSize,
-        height: animationSize,
-        child: FlareActor(
-          "animations/fail_icon.flr",
-          shouldClip: false,
-          animation: "pop",
-          alignment: Alignment.center,
-          fit: BoxFit.cover,
-          callback: (animation) {
-            Future.delayed(const Duration(milliseconds: 1000), () {
-              setState(() => this._status = 'rejected');
+    return Container(
+      margin: EdgeInsets.only(top: 25, bottom: 25),
+      width: 280,
+      child: Button(
+          text: text,
+          textColor: buttonStyle,
+          fontSize: screenAwareSize(16, context),
+          fontWeight: FontWeight.w700,
+          borderColor: buttonStyle,
+          onPressed: () {
+            setState(() => this._status = 'loading');
+            appAuth.login().then((result) {
+              setState(() =>
+                  this._status = result == true ? 'success' : 'rejected_icon');
             });
-          },
-        ),
-      );
-    }
-
-    return Button(
-        text: _text,
-        textColor: _buttonStyle,
-        fontSize: screenAwareSize(16, context),
-        fontWeight: FontWeight.w700,
-        borderColor: _buttonStyle,
-        onPressed: () {
-          setState(() => this._status = 'loading');
-          appAuth.login().then((result) {
-            setState(() =>
-                this._status = result == true ? 'success' : 'rejected_icon');
-          });
-        });
+          }),
+    );
   }
 
   void _showOverlay(BuildContext context) {
