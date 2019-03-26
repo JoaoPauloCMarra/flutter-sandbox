@@ -13,11 +13,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _status = 'no-action';
-
   @override
   Widget build(BuildContext context) {
-    theme = MainTheme(context);
+    theme = MainTheme();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _appBar(),
@@ -55,13 +53,13 @@ class _HomePageState extends State<HomePage> {
 
   Widget _welcome() => Text(
         'Welcome to MySocial!',
-        style: theme.getTheme().textTheme.title,
+        style: theme.getTextTheme(context).textTheme.title,
       );
 
   Widget _homeText() => Text(
         '''Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.''',
         textAlign: TextAlign.justify,
-        style: theme.getTheme().textTheme.body1,
+        style: theme.getTextTheme(context).textTheme.body1,
       );
 
   Widget _logoutButton() => Button(
@@ -71,7 +69,6 @@ class _HomePageState extends State<HomePage> {
       fontWeight: FontWeight.normal,
       borderColor: Colors.redAccent,
       onPressed: () {
-        setState(() => this._status = 'loading');
         appAuth.logout().then((result) {
           Navigator.of(context).pushReplacementNamed('/login');
         });

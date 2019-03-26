@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:MySocial/utils.dart';
 
 class MainTheme {
-  BuildContext context;
-
-  MainTheme(BuildContext context) {
-    this.context = context;
-  }
-
-  ThemeData getTheme() => ThemeData(
+  ThemeData getMainTheme() => ThemeData(
         brightness: Brightness.dark,
         primaryColor: Colors.black,
         accentColor: Colors.cyan[600],
         fontFamily: 'Proxima Nova',
+      );
+
+  ThemeData getTextTheme(context) => ThemeData(
         textTheme: TextTheme(
           headline: TextStyle(
               color: Colors.grey[600],

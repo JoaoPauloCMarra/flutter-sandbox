@@ -34,7 +34,7 @@ void main() async {
     debugShowCheckedModeBanner: false,
     title: 'MySocial',
     home: _defaultHome,
-    theme: MainTheme().getTheme(),
+    theme: MainTheme().getMainTheme(),
     routes: <String, WidgetBuilder>{
       '/home': (BuildContext context) => HomePage(),
       '/login': (BuildContext context) => LoginPage(bg: _selectedBg())
