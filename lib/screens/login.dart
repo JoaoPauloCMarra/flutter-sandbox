@@ -119,6 +119,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _loginButton() {
     String _text = 'Log in';
     Color _buttonStyle;
+    double animationSize = 100;
 
     switch (this._status) {
       case 'loading':
@@ -136,8 +137,8 @@ class _LoginPageState extends State<LoginPage> {
     if (this._status == 'success') {
       return Container(
         margin: EdgeInsets.only(top: 20),
-        width: 150,
-        height: 150,
+        width: animationSize,
+        height: animationSize,
         child: FlareActor(
           "animations/success_icon.flr",
           shouldClip: false,
@@ -156,8 +157,8 @@ class _LoginPageState extends State<LoginPage> {
     if (this._status == 'rejected_icon') {
       return Container(
         margin: EdgeInsets.only(top: 20),
-        width: 150,
-        height: 150,
+        width: animationSize,
+        height: animationSize,
         child: FlareActor(
           "animations/fail_icon.flr",
           shouldClip: false,

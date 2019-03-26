@@ -14,6 +14,8 @@ AssetImage _bgIndex() {
 }
 
 void main() async {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   Widget _defaultHome = new LoginPage(bg: _bgIndex());
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
