@@ -145,8 +145,28 @@ class _LoginPageState extends State<LoginPage> {
           alignment: Alignment.center,
           fit: BoxFit.cover,
           callback: (animation) {
-            Future.delayed(const Duration(milliseconds: 500), () {
+            Future.delayed(const Duration(milliseconds: 1000), () {
               Navigator.of(context).pushReplacementNamed('/home');
+            });
+          },
+        ),
+      );
+    }
+
+    if (this._status == 'rejected_icon') {
+      return Container(
+        margin: EdgeInsets.only(top: 20),
+        width: 150,
+        height: 150,
+        child: FlareActor(
+          "animations/fail_icon.flr",
+          shouldClip: false,
+          animation: "pop",
+          alignment: Alignment.center,
+          fit: BoxFit.cover,
+          callback: (animation) {
+            Future.delayed(const Duration(milliseconds: 1000), () {
+              setState(() => this._status = 'rejected');
             });
           },
         ),
@@ -162,11 +182,8 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: () {
           setState(() => this._status = 'loading');
           appAuth.login().then((result) {
-            if (result) {
-              setState(() => this._status = 'success');
-            } else {
-              setState(() => this._status = 'rejected');
-            }
+            setState(() =>
+                this._status = result == true ? 'success' : 'rejected_icon');
           });
         });
   }

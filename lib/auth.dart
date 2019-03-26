@@ -6,7 +6,7 @@ class AuthService {
   Future<bool> login() async {
     // Simulate a future for response after 2 second.
     return await new Future<bool>.delayed(
-        new Duration(seconds: 3), () => new Random().nextBool());
+        new Duration(seconds: 2), () => new Random().nextBool());
   }
 
   // Logout
