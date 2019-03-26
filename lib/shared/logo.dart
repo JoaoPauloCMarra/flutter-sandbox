@@ -21,20 +21,13 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          Icon(
-            icon,
-            color: textColor,
-            size: fontSize != null ? fontSize : screenAwareSize(26, context),
-          ),
-          Container(
-            margin: EdgeInsets.only(right: 10),
-          ),
           Text(
             this.text,
             style: TextStyle(
               color: textColor,
+              fontFamily: 'Silent Reaction',
               fontSize:
-                  fontSize != null ? fontSize : screenAwareSize(26, context),
+                  fontSize != null ? fontSize : screenAwareSize(42, context),
               fontWeight: fontWeight,
             ),
           )
