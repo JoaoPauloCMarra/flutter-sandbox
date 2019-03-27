@@ -177,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Container(
       width: 280,
-      padding: EdgeInsets.only(top: 35),
+      padding: EdgeInsets.only(top: 55),
       child: Button(
           text: text,
           textColor: buttonStyle,

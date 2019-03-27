@@ -35,7 +35,6 @@ class Button extends StatelessWidget {
       onTap: disabled ? null : onPressed,
       child: Container(
         constraints: const BoxConstraints(minWidth: double.infinity),
-        margin: const EdgeInsets.only(top: 20),
         decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(borderRadius),
