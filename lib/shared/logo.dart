@@ -27,7 +27,7 @@ class Logo extends StatelessWidget {
               shadows: [
                 Shadow(
                     color: Colors.cyanAccent,
-                    blurRadius: 5,
+                    blurRadius: 10,
                     offset: Offset(0, 0))
               ],
               color: textColor,

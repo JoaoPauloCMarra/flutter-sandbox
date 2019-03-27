@@ -6,11 +6,15 @@ import 'button.dart';
 ModalConfig config;
 
 class ModalButtonConfig {
-  String label;
-  Color color;
+  String label = '';
+  Color color = Colors.black;
   Function callback;
 
-  ModalButtonConfig({@required label, color, callback});
+  ModalButtonConfig({@required label, color, callback}) {
+    this.label = label;
+    this.color = color;
+    this.callback = callback;
+  }
 }
 
 class ShowModal extends ModalRoute<void> {
@@ -107,9 +111,10 @@ class ShowModal extends ModalRoute<void> {
       : null;
 
   Widget _actions(BuildContext context) {
-    var actionsWdigets = <Widget>[];
+    List<Widget> actionsWdigets = <Widget>[];
 
-    for (var action in actions.values) {
+    for (ModalButtonConfig action in actions.values) {
+      print(action.label);
       actionsWdigets.add(Button(
         text: action.label,
         fontSize: config.buttonFontSize(),
