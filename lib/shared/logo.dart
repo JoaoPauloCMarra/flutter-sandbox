@@ -24,6 +24,12 @@ class Logo extends StatelessWidget {
           Text(
             this.text,
             style: TextStyle(
+              shadows: [
+                Shadow(
+                    color: Colors.cyanAccent,
+                    blurRadius: 5,
+                    offset: Offset(0, 0))
+              ],
               color: textColor,
               fontFamily: 'Silent Reaction',
               fontSize:
