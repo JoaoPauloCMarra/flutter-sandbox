@@ -150,7 +150,6 @@ class _LoginPageState extends State<LoginPage> {
 
     if (animate == true) {
       return Container(
-        margin: EdgeInsets.only(top: 20),
         width: animationSize,
         height: animationSize,
         child: FlareActor(animationFile,
@@ -177,12 +176,12 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     return Container(
-      margin: EdgeInsets.only(top: 25, bottom: 25),
       width: 280,
+      padding: EdgeInsets.only(top: 35),
       child: Button(
           text: text,
           textColor: buttonStyle,
-          fontSize: screenAwareSize(16, context),
+          fontSize: screenAwareSize(14, context),
           fontWeight: FontWeight.w700,
           borderColor: buttonStyle,
           onPressed: () {

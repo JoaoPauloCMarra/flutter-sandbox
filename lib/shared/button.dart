@@ -31,22 +31,27 @@ class Button extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
-      constraints: const BoxConstraints(minWidth: double.infinity),
-      margin: const EdgeInsets.only(top: 20),
-      decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(borderRadius),
-          border: Border.all(color: borderColor, width: borderWidth)),
-      width: 250.0,
-      child: FlatButton(
-          child: Text(text,
-              style: TextStyle(
-                color: textColor,
-                fontSize: screenAwareSize(fontSize, context),
-                fontWeight: fontWeight,
-              )),
-          padding: EdgeInsets.only(
-              left: paddingHorizontal, right: paddingHorizontal),
-          onPressed: disabled ? null : onPressed));
+  Widget build(BuildContext context) => InkWell(
+      onTap: disabled ? null : onPressed,
+      child: Container(
+        constraints: const BoxConstraints(minWidth: double.infinity),
+        margin: const EdgeInsets.only(top: 20),
+        decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(borderRadius),
+            border: Border.all(color: borderColor, width: borderWidth)),
+        width: 250.0,
+        child: Text(text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: textColor,
+              fontSize: screenAwareSize(fontSize, context),
+              fontWeight: fontWeight,
+            )),
+        padding: EdgeInsets.only(
+            left: paddingHorizontal,
+            right: paddingHorizontal,
+            top: paddingHorizontal / 2,
+            bottom: paddingHorizontal / 2),
+      ));
 }
