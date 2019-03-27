@@ -201,27 +201,34 @@ class _LoginPageState extends State<LoginPage> {
       fontSize: screenAwareSize(14, context),
       fontWeight: FontWeight.normal,
     );
-    final String text =
+    final String loremText =
         ''' Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ''';
+
+    final Map<int, ModalButtonConfig> actions = Map();
+    actions[0] =
+        ModalButtonConfig('Confirm 1', Colors.blue, () => print('confirm 1'));
+    actions[1] =
+        ModalButtonConfig('Confirm 2', Colors.green, () => print('confirm 2'));
 
     Navigator.of(context).push(ShowModal(
         title: 'My sample modal :)',
+        actions: actions,
         child: Column(
           children: <Widget>[
             Text(
-              text,
+              loremText,
               style: textStyle,
             ),
             Text(
-              text,
+              loremText,
               style: textStyle,
             ),
             Text(
-              text,
+              loremText,
               style: textStyle,
             ),
             Text(
-              text,
+              loremText,
               style: textStyle,
             )
           ],

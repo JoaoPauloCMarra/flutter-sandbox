@@ -5,6 +5,14 @@ import 'button.dart';
 
 ModalConfig config;
 
+class ModalButtonConfig {
+  String label;
+  Color color;
+  Function callback;
+
+  ModalButtonConfig(this.label, this.color, this.callback);
+}
+
 class ShowModal extends ModalRoute<void> {
   @override
   Duration get transitionDuration => Duration(milliseconds: 400);
@@ -51,12 +59,13 @@ class ShowModal extends ModalRoute<void> {
   String title;
   Widget child;
   Function onConfirm;
+  Map<int, ModalButtonConfig> actions = Map();
 
-  ShowModal({
-    this.title = '',
-    this.child = const Text(' '),
-    this.onConfirm,
-  });
+  ShowModal(
+      {this.title = '',
+      this.child = const Text(' '),
+      this.onConfirm,
+      this.actions});
 
   Widget _buildOverlayContent(BuildContext context) {
     return Container(
@@ -98,10 +107,20 @@ class ShowModal extends ModalRoute<void> {
       : null;
 
   Widget _actions(BuildContext context) {
-    var actions = <Widget>[];
+    var actionsWdigets = <Widget>[];
+
+    for (var action in actions.values) {
+      actionsWdigets.add(Button(
+        text: action.label,
+        fontSize: config.buttonFontSize(),
+        borderColor: action.color,
+        textColor: action.color,
+        onPressed: action.callback,
+      ));
+    }
 
     if (onConfirm != null) {
-      actions.add(Button(
+      actionsWdigets.add(Button(
         text: 'Confirm',
         fontSize: config.buttonFontSize(),
         borderColor: config.buttonColorConfirm(),
@@ -109,7 +128,7 @@ class ShowModal extends ModalRoute<void> {
         onPressed: () => onConfirm(),
       ));
     }
-    actions.add(Button(
+    actionsWdigets.add(Button(
       text: 'Close',
       fontSize: config.buttonFontSize(),
       borderColor: config.buttonColorCancel(),
@@ -118,7 +137,7 @@ class ShowModal extends ModalRoute<void> {
     ));
 
     return Column(
-      children: actions,
+      children: actionsWdigets,
     );
   }
 }
