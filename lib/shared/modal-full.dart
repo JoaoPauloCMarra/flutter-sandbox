@@ -10,7 +10,7 @@ class ModalButtonConfig {
   Color color;
   Function callback;
 
-  ModalButtonConfig(this.label, this.color, this.callback);
+  ModalButtonConfig({@required label, color, callback});
 }
 
 class ShowModal extends ModalRoute<void> {
